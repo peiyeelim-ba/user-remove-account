@@ -3,119 +3,160 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>G2G — User Remove Account | Design Docs</title>
+<title>User Remove Account — Mockups for Stakeholder Review</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: 'Roboto Flex', system-ui, sans-serif;
-    background: #ececf0;
+    background: #f5f5f8;
+    color: #303030;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
   }
-  .header {
-    background: #1b1c1f;
-    border-bottom: 2px solid #ff4130;
-    padding: 0 32px;
-    height: 56px;
+
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  /* Title block */
+  .title { font-size: 32px; font-weight: 800; color: #1a1a1a; margin-bottom: 8px; line-height: 1.2; }
+  .subtitle { font-size: 15px; color: #777; margin-bottom: 12px; }
+  .meta { font-size: 13px; color: #555; margin-bottom: 32px; display: flex; flex-wrap: wrap; gap: 4px 0; line-height: 1.8; }
+  .meta strong { color: #303030; }
+  .meta-dot { color: #bbb; margin: 0 8px; }
+
+  /* Context card */
+  .context-card {
+    background: #fff;
+    border: 1px solid #e9e9ee;
+    border-radius: 12px;
+    padding: 20px 24px;
+    font-size: 14px;
+    line-height: 1.75;
+    color: #303030;
+    margin-bottom: 36px;
+  }
+
+  /* Section label */
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #9292a2;
+    margin-bottom: 14px;
+  }
+
+  /* Review items */
+  .items { display: flex; flex-direction: column; gap: 12px; }
+
+  .item {
+    background: #fff;
+    border: 1px solid #e9e9ee;
+    border-radius: 12px;
+    padding: 20px 20px 20px 20px;
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 18px;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow .18s ease, border-color .18s ease;
+    cursor: pointer;
   }
-  .logo { font-weight: 900; font-size: 24px; letter-spacing: -.02em; line-height: 1; color: #fff; }
-  .logo span { color: #ff4130; font-size: 18px; }
-  .header-tag {
-    font-size: 11px; font-weight: 600; color: #6e6f73;
-    letter-spacing: .06em; text-transform: uppercase;
-    border-left: 1px solid #2e2f33; padding-left: 16px;
+  .item:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.09);
+    border-color: #d2d2da;
   }
-  .main { flex: 1; max-width: 860px; margin: 0 auto; padding: 48px 24px; width: 100%; }
-  .page-title { font-size: 28px; font-weight: 700; color: #303030; margin-bottom: 6px; }
-  .page-sub { font-size: 14px; color: #777; margin-bottom: 36px; }
-  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  .card {
-    background: #fff; border-radius: 12px;
-    box-shadow: 0 0.14px 2.29px rgba(0,0,0,0.03), 0 3px 7px rgba(0,0,0,0.09);
-    overflow: hidden; text-decoration: none; color: inherit;
-    display: flex; flex-direction: column;
-    transition: box-shadow .2s ease, transform .15s ease;
+
+  .item-num {
+    width: 36px; height: 36px; border-radius: 9999px;
+    background: #fff3f0; color: #ff4130;
+    font-size: 15px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
   }
-  .card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.14); transform: translateY(-2px); }
-  .card-banner {
-    height: 120px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
+
+  .item-body { flex: 1; min-width: 0; }
+  .item-title { font-size: 16px; font-weight: 700; color: #1a1a1a; margin-bottom: 5px; }
+  .item-desc { font-size: 13px; color: #666; line-height: 1.6; margin-bottom: 10px; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 5px;
+    letter-spacing: .02em;
   }
-  .card-banner .icon { font-size: 48px; color: rgba(255,255,255,0.9); position: relative; z-index: 1; }
-  .card-body { padding: 22px 24px 24px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
-  .card-tag {
-    display: inline-flex; align-items: center; gap: 5px;
-    font-size: 10px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
-    padding: 3px 8px; border-radius: 4px; width: fit-content; margin-bottom: 2px;
+  .tag-updated { background: #fff1f0; color: #d32f2f; }
+  .tag-new     { background: #e8f8f0; color: #1dbf73; }
+  .tag-neutral { background: #f0f0f4; color: #555; }
+  .tag-blue    { background: #e8f0ff; color: #1d4fb3; }
+
+  .arrow {
+    font-size: 22px; color: #ff4130; flex-shrink: 0;
+    font-weight: 700;
   }
-  .card-title { font-size: 17px; font-weight: 700; color: #303030; }
-  .card-desc { font-size: 13px; color: #777; line-height: 1.6; flex: 1; }
-  .card-cta {
-    margin-top: 16px; display: inline-flex; align-items: center; gap: 6px;
-    font-size: 13px; font-weight: 600; padding: 10px 18px; border-radius: 8px;
-    border: none; cursor: pointer; font-family: inherit; text-decoration: none; transition: background .15s;
+
+  /* Footer */
+  .footer {
+    margin-top: 48px;
+    font-size: 11px;
+    color: #bbb;
+    text-align: center;
   }
-  .footer { text-align: center; padding: 24px; font-size: 11px; color: #9292a2; }
 </style>
 </head>
 <body>
+<div class="page">
 
-<header class="header">
-  <div class="logo">G<span>2</span>G</div>
-  <div class="header-tag">User Remove Account · Design Docs</div>
-</header>
+  <h1 class="title">Mockups for Stakeholder Review</h1>
+  <div class="subtitle">User account deletion — self-serve flow replacing manual BD review</div>
+  <div class="meta">
+    <span><strong>Feature:</strong> User Remove Account</span>
+    <span class="meta-dot">·</span>
+    <span><strong>Status:</strong> Draft for review</span>
+  </div>
 
-<main class="main">
-  <div class="page-title">User Remove Account</div>
-  <div class="page-sub">Design documentation and flow mockups for the account deletion feature.</div>
+  <div class="context-card">
+    <strong>Context.</strong> Users currently have no self-serve way to delete their account. This feature introduces a structured deletion flow: the system checks for active orders, pending withdrawals, open disputes, and remaining balance before allowing deletion. If blockers exist, the user must resolve them and resubmit. Once cleared, a 14-day cooling-off period begins before the account is permanently deleted.
+  </div>
 
-  <div class="cards">
+  <div class="section-label">Suggested Review Order</div>
 
-    <a href="delete-account-flow.html" class="card">
-      <div class="card-banner" style="background: linear-gradient(135deg, #d32f2f 0%, #8b1a1a 100%);">
-        <span class="material-icons icon">no_accounts</span>
-      </div>
-      <div class="card-body">
-        <div class="card-tag" style="background:#fff1f0; color:#d32f2f;">
-          <span class="material-icons" style="font-size:11px">devices</span>
-          UI Flow
+  <div class="items">
+
+    <a href="delete-account-flow.html" class="item">
+      <div class="item-num">1</div>
+      <div class="item-body">
+        <div class="item-title">Delete Account Flow</div>
+        <div class="item-desc">All UI states across the deletion journey — No Request, Under Review, Blocked (with active orders &amp; balance resolution), and Cooling-off period.</div>
+        <div class="tags">
+          <span class="tag tag-updated">UI Flow</span>
+          <span class="tag tag-neutral">4 states</span>
+          <span class="tag tag-neutral">Blocker resolution</span>
+          <span class="tag tag-neutral">Balance forfeit</span>
         </div>
-        <div class="card-title">Delete Account Flow</div>
-        <div class="card-desc">All states of the account deletion journey — No Request, Under Review, Blocked, and Cooling-off period.</div>
-        <a href="delete-account-flow.html" class="card-cta" style="background:#ff4130; color:#fff;">
-          <span class="material-icons" style="font-size:16px">open_in_new</span>
-          View Flow
-        </a>
       </div>
+      <div class="arrow">→</div>
     </a>
 
-    <a href="email-drafts.html" class="card">
-      <div class="card-banner" style="background: linear-gradient(135deg, #1565c0 0%, #0d3b7a 100%);">
-        <span class="material-icons icon">mark_email_read</span>
-      </div>
-      <div class="card-body">
-        <div class="card-tag" style="background:#e8f0ff; color:#1d4fb3;">
-          <span class="material-icons" style="font-size:11px">email</span>
-          Email
+    <a href="email-drafts.html" class="item">
+      <div class="item-num">2</div>
+      <div class="item-body">
+        <div class="item-title">Email Drafts</div>
+        <div class="item-desc">Transactional emails triggered at each stage — submission confirmation, blocker notification, cooling-off start, and account deletion complete.</div>
+        <div class="tags">
+          <span class="tag tag-blue">Email</span>
+          <span class="tag tag-neutral">Triggered emails</span>
+          <span class="tag tag-neutral">All states</span>
         </div>
-        <div class="card-title">Email Drafts</div>
-        <div class="card-desc">Transactional email templates sent to users throughout the account deletion process — confirmations, blockers, and completion.</div>
-        <a href="email-drafts.html" class="card-cta" style="background:#1565c0; color:#fff;">
-          <span class="material-icons" style="font-size:16px">open_in_new</span>
-          View Emails
-        </a>
       </div>
+      <div class="arrow">→</div>
     </a>
 
   </div>
-</main>
 
-<footer class="footer">G2G · User Remove Account · Internal Design Docs</footer>
-
+  <div class="footer">G2G · User Remove Account · Internal Design Docs</div>
+</div>
 </body>
 </html>
