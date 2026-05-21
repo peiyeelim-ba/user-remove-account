@@ -1404,9 +1404,9 @@ window.FailedResultScreen = function FailedResultScreen({ tweaks, onRetry, onCan
       summary: 'Wait for delivery to complete, or contact the seller to cancel.',
       severity: 'high',
       items: [
-        { id:'#G2G-7782341', label:'Genshin Impact — Mondstadt Account', meta:'Buyer · Seller: ProShopMY · Placed Mar 10, 2026', status:'Delivering', tone:'info', sub:'1 day 14 hours left to deliver', cta:'View Order', ctaLink:'/account/orders' },
-        { id:'#G2G-7780199', label:'Valorant Coaching — 5 sessions', meta:'Buyer · Coach: AceTrainer · Placed Mar 8, 2026', status:'Verifying', tone:'warn', sub:'Awaiting your confirmation of receipt', cta:'View Order', ctaLink:'/account/orders' },
-        { id:'#G2G-7771885', label:'PUBG Mobile UC — 8,100 UC', meta:'Seller · Buyer: gamerXYZ · Placed Mar 9, 2026', status:'Awaiting delivery', tone:'warn', sub:'You need to deliver within 12 hours', cta:'View Order', ctaLink:'/account/orders/sold' },
+        { id:'#G2G-7782341', label:'Genshin Impact — Mondstadt Account', status:'Delivering', tone:'info', cta:'View Order', ctaLink:'/account/orders' },
+        { id:'#G2G-7780199', label:'Valorant Coaching — 5 sessions', status:'Delivering', tone:'info', cta:'View Order', ctaLink:'/account/orders' },
+        { id:'#G2G-7771885', label:'PUBG Mobile UC — 8,100 UC', status:'Delivering', tone:'info', cta:'View Order', ctaLink:'/account/orders/sold' },
       ],
     },
     'open-dispute': {
@@ -1477,7 +1477,10 @@ window.FailedResultScreen = function FailedResultScreen({ tweaks, onRetry, onCan
             <Chip tone="hot">ACTION REQUIRED</Chip>
           </div>
           <div style={{fontSize:12, color:'#5c1612'}}>
-            Resolve <strong>{remaining.length} item{remaining.length !== 1 ? 's' : ''}</strong> below, then resubmit. Ref: <span style={{fontFamily:'var(--font-mono,monospace)'}}>#DEL-2026-018724</span>
+            Resolve <strong>{remaining.length} item{remaining.length !== 1 ? 's' : ''}</strong> below, then resubmit your account deletion request.
+          </div>
+          <div style={{fontSize:12, color:'#5c1612', marginTop:4}}>
+            Once all blockers are resolved, please resubmit your account deletion request to continue.
           </div>
         </div>
       </div>
